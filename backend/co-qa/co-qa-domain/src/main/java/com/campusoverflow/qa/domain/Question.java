@@ -82,10 +82,10 @@ public class Question {
         ensureCanManage(actor, actorManagesCourse, "QA-3001", "只有提问者或课程教师/助教可以采纳");
         Objects.requireNonNull(answer, "answer");
         if (id == null || answer.questionId() != id) {
-            throw new BusinessRuleException("QA-1009", "该回答不属于当前问题");
+            throw new BusinessRuleException("QA-1010", "该回答不属于当前问题");
         }
         if (answer.isDeleted()) {
-            throw new BusinessRuleException("QA-1008", "已删除的回答不能被采纳");
+            throw new BusinessRuleException("QA-1011", "已删除的回答不能被采纳");
         }
         if (acceptedAnswerId != null) {
             throw new ConflictException("QA-2002", "问题已采纳，不能重复采纳");
@@ -97,7 +97,7 @@ public class Question {
         ensureNotDeleted();
         ensureCanManage(actor, actorManagesCourse, "QA-3003", "只有提问者或课程教师/助教可以删除该问题");
         if (!actorManagesCourse && answerCount > 0) {
-            throw new BusinessRuleException("QA-1010", "已有回答的问题只能由课程教师/助教删除");
+            throw new BusinessRuleException("QA-1013", "已有回答的问题只能由课程教师/助教删除");
         }
         this.deletedAt = now;
         this.updatedAt = now;
@@ -105,13 +105,13 @@ public class Question {
 
     public void ensureOpenForAnswers() {
         if (isDeleted()) {
-            throw new BusinessRuleException("QA-1008", "问题已删除，不能再回答");
+            throw new BusinessRuleException("QA-1020", "问题已删除，不能再回答");
         }
     }
 
     private void ensureNotDeleted() {
         if (isDeleted()) {
-            throw new BusinessRuleException("QA-1008", "问题已删除，不能再操作");
+            throw new BusinessRuleException("QA-1020", "问题已删除，不能再操作");
         }
     }
 

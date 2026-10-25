@@ -45,7 +45,7 @@ public class Vote {
 
     private static int checkValue(int value) {
         if (value != 1 && value != -1) {
-            throw new BusinessRuleException("QA-1006", "投票值只能是 +1 或 -1");
+            throw new BusinessRuleException("QA-1014", "投票值只能是 +1 或 -1");
         }
         return value;
     }

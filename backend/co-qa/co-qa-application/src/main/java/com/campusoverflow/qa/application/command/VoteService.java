@@ -93,7 +93,7 @@ public class VoteService {
                 Question question = questions.findById(targetId)
                         .orElseThrow(() -> new NotFoundException("QA-4001", "问题不存在"));
                 if (question.isDeleted()) {
-                    throw new BusinessRuleException("QA-1008", "问题已删除，不能投票");
+                    throw new BusinessRuleException("QA-1020", "问题已删除，不能投票");
                 }
                 yield new Target(question.authorId(), question.id());
             }
@@ -101,7 +101,7 @@ public class VoteService {
                 Answer answer = answers.findById(targetId)
                         .orElseThrow(() -> new NotFoundException("QA-4002", "回答不存在"));
                 if (answer.isDeleted()) {
-                    throw new BusinessRuleException("QA-1008", "回答已删除，不能投票");
+                    throw new BusinessRuleException("QA-1020", "回答已删除，不能投票");
                 }
                 yield new Target(answer.authorId(), answer.questionId());
             }

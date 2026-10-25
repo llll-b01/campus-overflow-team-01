@@ -75,7 +75,7 @@ public class Answer {
         ensureNotDeleted();
         ensureCanManage(actor, actorManagesCourse, "QA-3003", "只有回答者或课程教师/助教可以删除该回答");
         if (accepted && !actorManagesCourse) {
-            throw new BusinessRuleException("QA-1011", "已被采纳的回答只能由课程教师/助教删除");
+            throw new BusinessRuleException("QA-1012", "已被采纳的回答只能由课程教师/助教删除");
         }
         this.deletedAt = now;
         this.updatedAt = now;
@@ -83,7 +83,7 @@ public class Answer {
 
     private void ensureNotDeleted() {
         if (isDeleted()) {
-            throw new BusinessRuleException("QA-1008", "回答已删除，不能再操作");
+            throw new BusinessRuleException("QA-1020", "回答已删除，不能再操作");
         }
     }
 

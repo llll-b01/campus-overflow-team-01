@@ -11,6 +11,14 @@
     <artifactId>co-qa-domain</artifactId>
     <packaging>jar</packaging>
     <name>Q&amp;A 问答核心 :: domain（纯 Java）</name>
+    <properties>
+        <!--
+          Sprint 1 结束时启用领域层覆盖率门禁（指导书 V2 第 8.3 节）。
+          父 POM 默认 0，这里按模块覆盖；Sprint 3 再统一把根 POM 提到 0.70。
+          当前实测行覆盖 93.2%（207/222）、分支 91.4%（64/70），离 0.70 有充足余量。
+        -->
+        <domain.coverage.minimum>0.70</domain.coverage.minimum>
+    </properties>
     <dependencies>
         <dependency>
             <groupId>com.campusoverflow</groupId>

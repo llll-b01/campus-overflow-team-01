@@ -24,11 +24,11 @@ class QaReviewRegressionTest {
 
         assertThatThrownBy(() -> Comment.post(TargetType.ANSWER, 50, 10, 1, reply, "再回复一层", NOW))
                 .isInstanceOfSatisfying(BusinessRuleException.class,
-                        e -> assertThat(e.code()).isEqualTo("QA-1007"));
+                        e -> assertThat(e.code()).isEqualTo("QA-1016"));
 
         assertThatThrownBy(() -> Comment.post(TargetType.QUESTION, 10, 10, 1, top, "挂错位置的回复", NOW))
                 .isInstanceOfSatisfying(BusinessRuleException.class,
-                        e -> assertThat(e.code()).isEqualTo("QA-1012"));
+                        e -> assertThat(e.code()).isEqualTo("QA-1017"));
     }
 
     @Test
@@ -51,6 +51,6 @@ class QaReviewRegressionTest {
 
         assertThatThrownBy(() -> question.accept(foreign, QuestionTest.ASKER, false))
                 .isInstanceOfSatisfying(BusinessRuleException.class,
-                        e -> assertThat(e.code()).isEqualTo("QA-1009"));
+                        e -> assertThat(e.code()).isEqualTo("QA-1010"));
     }
 }

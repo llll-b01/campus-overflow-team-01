@@ -40,7 +40,7 @@ public class CommentService {
     public long post(Actor actor, PostCommentCommand cmd) {
         long questionId = resolveQuestionId(cmd.targetType(), cmd.targetId());
         Comment parent = cmd.parentId() == null ? null : comments.findById(cmd.parentId())
-                .orElseThrow(() -> new NotFoundException("QA-4004", "被回复的评论不存在"));
+                .orElseThrow(() -> new NotFoundException("QA-4003", "被回复的评论不存在"));
         // 一层回复限制、父评论归属校验、正文长度全部由 Comment.post 守护。
         Comment saved = comments.save(Comment.post(cmd.targetType(), cmd.targetId(), questionId, actor.userId(),
                 parent, cmd.body(), clock.instant()));
@@ -58,7 +58,7 @@ public class CommentService {
                 Answer answer = answers.findById(targetId)
                         .orElseThrow(() -> new NotFoundException("QA-4002", "回答不存在"));
                 if (answer.isDeleted()) {
-                    throw new BusinessRuleException("QA-1008", "回答已删除，不能再评论");
+                    throw new BusinessRuleException("QA-1020", "回答已删除，不能再评论");
                 }
                 yield loadOpenQuestion(answer.questionId()).id();
             }

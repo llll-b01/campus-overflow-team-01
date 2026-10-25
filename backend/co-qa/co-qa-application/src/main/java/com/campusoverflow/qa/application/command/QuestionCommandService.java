@@ -124,7 +124,7 @@ public class QuestionCommandService {
 
     private void ensureCourseExists(Long courseId) {
         if (courseId != null && identity.findCourse(courseId).isEmpty()) {
-            throw new NotFoundException("QA-4003", "课程不存在");
+            throw new NotFoundException("ID-4002", "课程不存在");
         }
     }
 

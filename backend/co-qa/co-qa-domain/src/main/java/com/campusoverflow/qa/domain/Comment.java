@@ -30,17 +30,19 @@ public class Comment {
     }
 
     public static final int MAX_LENGTH = 600;
+    /** 下限 2 字：单字评论（「好」「顶」）没有信息量。指导书 V2 第 3.7 节。 */
+    public static final int MIN_LENGTH = 2;
 
     public static Comment post(TargetType targetType, long targetId, long questionId, long authorId, Comment parent,
                                String body, Instant now) {
-        String text = Guard.requireText(body, 1, MAX_LENGTH, "QA-1002", "评论");
+        String text = Guard.requireText(body, MIN_LENGTH, MAX_LENGTH, "QA-1003", "评论");
         Long parentId = null;
         if (parent != null) {
             if (parent.parentId != null) {
-                throw new BusinessRuleException("QA-1007", "评论回复只支持一层，不能再回复二级评论");
+                throw new BusinessRuleException("QA-1016", "评论回复只支持一层，不能再回复二级评论");
             }
             if (parent.targetType != targetType || parent.targetId != targetId) {
-                throw new BusinessRuleException("QA-1012", "回复必须与被回复的评论挂在同一内容下");
+                throw new BusinessRuleException("QA-1017", "回复必须与被回复的评论挂在同一内容下");
             }
             parentId = Objects.requireNonNull(parent.id, "被回复的评论尚未分配 ID");
         }
